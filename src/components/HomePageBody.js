@@ -6,14 +6,14 @@ import "./HomePageBody.css"
 class HomePageBody extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {body: null};
+        this.state = {data: null};
     }
 
     async componentDidMount() {
         const [response, error] = await request("/holding", "GET");
         if (response && response.ok) {
-            let a = await response.json();
-            this.setState({body: a});
+            let data = await response.json();
+            this.setState({data: data});
         } else if (error) {
             alert(error.error);
         }
@@ -23,10 +23,10 @@ class HomePageBody extends React.Component {
         let array = [];
         for (let i = 0; i < this.state.body.data.length; i++) {
             let row = <tr>
-                <td>{this.state.body.data[i].symbol}</td>
-                <td>{this.state.body.data[i].shares}</td>
-                <td>{this.state.body.data[i].price}</td>
-                <td>{this.state.body.data[i].total}</td>
+                <td>{this.state.data.data[i].symbol}</td>
+                <td>{this.state.data.data[i].shares}</td>
+                <td>{this.state.data.data[i].price}</td>
+                <td>{this.state.data.data[i].total}</td>
             </tr>;
             array.push(row)
         }
@@ -67,12 +67,12 @@ class HomePageBody extends React.Component {
                         </tr>
                         </thead>
                         <tbody>
-                        {this.state.body ? this.rows() : null}
+                        {this.state.data ? this.rows() : null}
                         {this.renderCash()}
                         </tbody>
 
                     </Table>
-                    {this.state.body ? null :
+                    {this.state.data ? null :
                         <p className="text-center">Loading...</p>}
 
                 </Col>
@@ -80,6 +80,5 @@ class HomePageBody extends React.Component {
         )
     }
 }
-
 
 export default HomePageBody;
