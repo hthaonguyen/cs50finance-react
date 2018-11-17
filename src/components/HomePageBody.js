@@ -34,43 +34,52 @@ class HomePageBody extends React.Component {
 
     }
 
-    render() {
-        if (this.state.body === null) {
-            return null;
-        } else {
-            return (
-                <Row>
-                    <Col lg={8} className="table-home " >
-                        <Table striped>
-                            <thead>
-                            <tr>
-                                <th>Symbol</th>
-                                <th>Shares</th>
-                                <th>Price</th>
-                                <th>Transacted</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            {this.rows()}
-                            <tr>
-                                <td>Cash</td>
-                                <td></td>
-                                <td></td>
-                                <td>{this.state.body.cash}</td>
-                            </tr>
-                            <tr>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td className="font-weight-bold">{this.state.body.holding}</td>
-                            </tr>
-                            </tbody>
-                        </Table>
-                    </Col>
-                </Row>
-            )
+    renderCash() {
+        if (this.state.body) {
+            return [
+                <tr>
+                    <td>Cash</td>
+                    <td></td>
+                    <td></td>
+                    <td>{this.state.body.cash}</td>
+                </tr>,
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td className="font-weight-bold">{this.state.body.holding}</td>
+                </tr>
+            ];
         }
     }
+
+    render() {
+        return (
+            <Row>
+                <Col lg={8} className="table-home ">
+                    <Table striped>
+                        <thead>
+                        <tr>
+                            <th>Symbol</th>
+                            <th>Shares</th>
+                            <th>Price</th>
+                            <th>Transacted</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {this.state.body ? this.rows() : null}
+                        {this.renderCash()}
+                        </tbody>
+
+                    </Table>
+                    {this.state.body ? null :
+                        <p className="text-center">Loading...</p>}
+
+                </Col>
+            </Row>
+        )
+    }
 }
+
 
 export default HomePageBody;
