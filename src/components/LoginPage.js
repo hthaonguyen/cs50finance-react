@@ -1,14 +1,17 @@
 import React from "react";
 import Header from './Header';
-import Body from './Body';
+import LoginPageBody from './LoginPageBody';
 import Footer from './Footer'
+import DocumentTitle from "react-document-title"
 function LoginPage() {
     return(
-        <div>
-            <Header></Header>
-            <Body></Body>
+        <DocumentTitle title='Finance - Login'>
+            <div>
+            <Header loggedIn={false}></Header>
+            <LoginPageBody></LoginPageBody>
             <Footer></Footer>
-        </div>
+            </div>
+        </DocumentTitle>
     )
 
 }
